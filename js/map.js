@@ -159,16 +159,12 @@ function setActiveMarker(activeKey) {
 }
 
 $(document).on("click", ".location-item", function () {
-  // 1) 어떤 장소인지 key 가져오기
   const key = $(this).find(".location-name").data("location");
 
-  // 2) 카드 하이라이트
   $(this).addClass("active").siblings().removeClass("active");
 
-  // 3) 마커 강조
   setActiveMarker(key);
 
-  // 4) 오른쪽 사이드바 업데이트
   const loc = locationData[key];
   if (loc) {
     $("#selectedLocationName").text(loc.name);
@@ -178,6 +174,5 @@ $(document).on("click", ".location-item", function () {
     $("#playStats").text(`Played ${loc.plays} times here`);
   }
 
-  // 5) 지도 중심 이동 (옵션)
   map.setCenter(new naver.maps.LatLng(loc.lat, loc.lng));
 });
