@@ -38,42 +38,42 @@
         </div>
 
         <div class="location-list">
-          <div class="location-item active" onclick="selectLocation(this, 'Central Park')">
+          <div class="location-item active">
             <div class="location-icon">📍</div>
             <div class="location-info">
-              <div class="location-name">Central Park</div>
-              <div class="location-details">New York, NY</div>
+              <div class="location-name" data-location="경복궁">경복궁</div>
+              <div class="location-details">Seoul, South Korea</div>
               <div class="location-track">Last played: Midnight City</div>
             </div>
             <div class="track-count">🎵 12</div>
           </div>
 
-          <div class="location-item" onclick="selectLocation(this, 'Golden Gate Bridge')">
+          <div class="location-item">
             <div class="location-icon">📍</div>
             <div class="location-info">
-              <div class="location-name">Golden Gate Bridge</div>
-              <div class="location-details">San Francisco, CA</div>
-              <div class="location-track">Last played: Blinding Lights</div>
+              <div class="location-name" data-location="잠수교">잠수교</div>
+              <div class="location-details">Seoul, South Korea</div>
+              <div class="location-track">Last played: aenergy</div>
             </div>
             <div class="track-count">🎵 8</div>
           </div>
 
-          <div class="location-item" onclick="selectLocation(this, 'Times Square')">
+          <div class="location-item">
             <div class="location-icon">📍</div>
             <div class="location-info">
-              <div class="location-name">Times Square</div>
-              <div class="location-details">New York, NY</div>
-              <div class="location-track">Last played: Good 4 U</div>
+              <div class="location-name" data-location="신세계 강남">신세계 강남</div>
+              <div class="location-details">Seoul, South Korea</div>
+              <div class="location-track">Last played: Gee</div>
             </div>
             <div class="track-count">🎵 15</div>
           </div>
 
-          <div class="location-item" onclick="selectLocation(this, 'Hollywood Sign')">
+          <div class="location-item">
             <div class="location-icon">📍</div>
             <div class="location-info">
-              <div class="location-name">Hollywood Sign</div>
-              <div class="location-details">Los Angeles, CA</div>
-              <div class="location-track">Last played: As It Was</div>
+              <div class="location-name" data-location="SM Entertainment">SM Entertainment</div>
+              <div class="location-details">Seoul, South Korea</div>
+              <div class="location-track">Last played: Sherlock</div>
             </div>
             <div class="track-count">🎵 21</div>
           </div>
@@ -82,15 +82,7 @@
 
       <!-- Map Area -->
       <div class="map-container">
-        <div class="map-placeholder">
-          <h3>Interactive Map</h3>
-          <p>Map integration would be implemented here</p>
-          <div class="map-dots">
-            <div class="map-dot"></div>
-            <div class="map-dot"></div>
-            <div class="map-dot"></div>
-          </div>
-        </div>
+        <div id="map"></div>
       </div>
 
       <!-- Right Panel -->
@@ -100,8 +92,11 @@
 
           <div class="selected-location-card">
             <div class="selected-location-icon">📍</div>
-            <div class="selected-location-name" id="selectedLocationName">Central Park</div>
-            <div class="selected-location-details" id="selectedLocationDetails">New York, NY</div>
+            <div class="selected-location-name" id="selectedLocationName"></div>
+            <div id="currentTrackTitle"></div>
+            <div class="selected-location-details" id="selectedLocationDetails"></div>
+            <div id="currentTrackArtist"></div>
+            <div id="playStats"></div>
           </div>
         </div>
 
@@ -121,7 +116,7 @@
           </div>
         </div>
 
-        <div class="legend">
+        <!-- <div class="legend">
           <div class="legend-title">Legend</div>
           <div class="legend-item">
             <div class="legend-dot most-played"></div>
@@ -139,72 +134,19 @@
             <div class="legend-dot shared-locations"></div>
             <span>Shared locations</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <script>
-      function selectLocation(element, locationName) {
-        // Remove active class from all items
-        document.querySelectorAll(".location-item").forEach(item => {
-          item.classList.remove("active");
-        });
-
-        // Add active class to selected item
-        element.classList.add("active");
-
-        // Update selected location info
-        const locationData = {
-          "Central Park": {
-            name: "Central Park",
-            details: "New York, NY",
-            track: "Midnight City",
-            artist: "M83",
-            plays: "12",
-          },
-          "Golden Gate Bridge": {
-            name: "Golden Gate Bridge",
-            details: "San Francisco, CA",
-            track: "Blinding Lights",
-            artist: "The Weeknd",
-            plays: "8",
-          },
-          "Times Square": {
-            name: "Times Square",
-            details: "New York, NY",
-            track: "Good 4 U",
-            artist: "Olivia Rodrigo",
-            plays: "15",
-          },
-          "Hollywood Sign": {
-            name: "Hollywood Sign",
-            details: "Los Angeles, CA",
-            track: "As It Was",
-            artist: "Harry Styles",
-            plays: "21",
-          },
-        };
-
-        const location = locationData[locationName];
-        if (location) {
-          document.getElementById("selectedLocationName").textContent = location.name;
-          document.getElementById("selectedLocationDetails").textContent = location.details;
-          document.getElementById("currentTrackTitle").textContent = location.track;
-          document.getElementById("currentTrackArtist").textContent = location.artist;
-          document.getElementById("playStats").textContent = `Played ${location.plays} times here`;
-        }
-      }
-
-      // Add hover effects for interactive elements
-      document.querySelectorAll(".control-btn").forEach(btn => {
-        btn.addEventListener("mouseenter", function () {
-          this.style.transform = "translateY(-2px)";
-        });
-
-        btn.addEventListener("mouseleave", function () {
-          this.style.transform = "translateY(0)";
-        });
-      });
-    </script>
+    <script
+      type="text/javascript"
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=x9hfjd089f"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="./js/map.js"></script>
   </body>
 </html>
