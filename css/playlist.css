@@ -1,0 +1,131 @@
+body {
+  background-color: #121212;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background-color: #181818;
+  border-bottom: 1px solid #333;
+}
+header nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+.container-flex {
+  display: flex;
+  height: calc(100vh - 70px);
+}
+/* Left sidebar */
+.sidebar {
+  width: 20%;
+  background-color: #181818;
+  padding: 20px;
+  border-right: 1px solid #333;
+}
+.sidebar h5 {
+  margin-bottom: 15px;
+}
+.playlist {
+  list-style: none;
+  padding: 0;
+}
+.playlist li {
+  padding: 8px 0;
+  cursor: pointer;
+}
+.playlist li:hover {
+  color: #1db954;
+}
+.create-playlist {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+}
+/* Main content */
+.main-content {
+  width: 60%;
+  padding: 30px;
+  overflow-y: auto;
+}
+.player-card {
+  background-color: #181818;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+}
+.controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  margin: 0 15px;
+}
+.waveform {
+  background-color: #101010;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  text-align: center;
+}
+.comments {
+  margin-top: 20px;
+}
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+.comment .icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+.icon.red {
+  background-color: #e63946;
+}
+.icon.purple {
+  background-color: #6c63ff;
+}
+.comment-text {
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+/* Right sidebar */
+.rightbar {
+  width: 20%;
+  background-color: #181818;
+  padding: 20px;
+  border-left: 1px solid #333;
+}
+.rightbar h6 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.song-item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.song-item span {
+  font-size: 14px;
+}

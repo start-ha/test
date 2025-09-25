@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <!--  추가 스타일시트 링크태그 자리  -->
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/map.css" />
 
     <!--  부트스트랩 CDN  -->
     <script
@@ -26,6 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body>
+    <!-- Header -->
     <header>
       <div class="header-upper-area">
         <div class="logobox">
@@ -37,8 +39,8 @@
         <nav class="nav-bar">
           <a href="./index.html"><div class="Home nav-area">Home</div></a>
           <a href="./playlist.html"><div class="Playlist nav-area">Playlist</div></a>
-          <a href="./playlist.html"><div class="Map nav-area">Map</div></a>
-          <a href="./playlist.html"><div class="My-Page nav-area">My-Page</div></a>
+          <a href="./map.html"><div class="Map nav-area">Map</div></a>
+          <a href="./mypage.html"><div class="My-Page nav-area">My-Page</div></a>
         </nav>
       </div>
       <div class="header-down-area">
@@ -47,5 +49,68 @@
         <button class="signup">Sign Up</button>
       </div>
     </header>
+    <!-- Layout -->
+    <div class="container-flex">
+      <!-- Left Sidebar -->
+      <div class="sidebar">
+        <h5>Music Locations</h5>
+        <div class="location-item active">
+          <b>Central Park</b>
+          <small>New York, NY</small>
+          <small>Last played: Midnight City</small>
+          <span>🎵 12</span>
+        </div>
+        <div class="location-item">
+          <b>Golden Gate Bridge</b>
+          <small>San Francisco, CA</small>
+          <small>Last played: Blinding Lights</small>
+          <span>🎵 8</span>
+        </div>
+        <div class="location-item">
+          <b>Times Square</b>
+          <small>New York, NY</small>
+          <small>Last played: Good 4 U</small>
+          <span>🎵 15</span>
+        </div>
+        <div class="location-item">
+          <b>Hollywood Sign</b>
+          <small>Los Angeles, CA</small>
+          <small>Last played: As It Was</small>
+          <span>🎵 21</span>
+        </div>
+      </div>
+
+      <!-- Map Area -->
+      <div class="map-area">[Map Area Placeholder]</div>
+
+      <!-- Right Sidebar -->
+      <div class="rightbar">
+        <div class="selected-box">
+          <h6>Selected Location</h6>
+          <p><b>Central Park</b><br />New York, NY</p>
+          <p>🎵 Midnight City<br /><small>Played 12 times here</small></p>
+          <button class="btn btn-success w-100">▶ Play</button>
+        </div>
+        <div class="legend">
+          <h6>Legend</h6>
+          <div class="legend-item">
+            <div class="legend-dot dot-red"></div>
+            Most played location
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot dot-green"></div>
+            Recently played
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot dot-blue"></div>
+            Favorite tracks
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot dot-purple"></div>
+            Shared locations
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

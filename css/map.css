@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  background-color: #121212;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+header {
+  background-color: #181818;
+  border-bottom: 1px solid #333;
+  padding: 10px 20px;
+}
+.header-upper-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1db954;
+}
+.logo-area img {
+  height: 30px;
+  margin-right: 8px;
+}
+.nav-bar {
+  display: flex;
+  gap: 20px;
+}
+.nav-bar .nav-area {
+  color: #fff;
+  cursor: pointer;
+}
+.nav-bar .nav-area:hover {
+  color: #1db954;
+}
+.header-down-area {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.header-down-area input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+}
+.login,
+.signup {
+  border: none;
+  padding: 6px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.signup {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/* Layout */
+.container-flex {
+  display: flex;
+  height: calc(100vh - 120px);
+}
+.sidebar {
+  width: 20%;
+  background-color: #181818;
+  border-right: 1px solid #333;
+  padding: 20px;
+}
+.location-item {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.location-item.active {
+  background-color: #1db954;
+}
+.location-item small {
+  display: block;
+  font-size: 12px;
+  color: #ccc;
+}
+.map-area {
+  flex: 1;
+  background-color: #0f0f0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+}
+.rightbar {
+  width: 20%;
+  background-color: #181818;
+  border-left: 1px solid #333;
+  padding: 20px;
+}
+.selected-box {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.legend {
+  margin-top: 20px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.dot-red {
+  background-color: #e63946;
+}
+.dot-green {
+  background-color: #1db954;
+}
+.dot-blue {
+  background-color: #3498db;
+}
+.dot-purple {
+  background-color: #9b59b6;
+}
