@@ -47,5 +47,67 @@
         <button class="signup">Sign Up</button>
       </div>
     </header>
+    <!-- Layout -->
+    <div class="container-flex">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h5>My Playlists</h5>
+        <ul class="playlist">
+          <li>Favorites Mix <small class="text-secondary">20 songs</small></li>
+          <li>Vibes <small class="text-secondary">24 songs</small></li>
+          <li>Rock Hits <small class="text-secondary">43 songs</small></li>
+          <li>Electronic <small class="text-secondary">16 songs</small></li>
+        </ul>
+        <div class="create-playlist">+ Create Playlist</div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="player-card">
+          <h4>Midnight City</h4>
+          <p>M83 • 3:45 • 2.1k plays</p>
+          <div class="controls">
+            <button>⏮</button>
+            <button style="color: #1db954; font-size: 30px">▶</button>
+            <button>⏭</button>
+          </div>
+          <input type="range" class="form-range" min="0" max="100" value="40" />
+          <div class="waveform text-success">████ ▄▄ ▄▄ ████ ▄▄ ███ ▄▄ ████</div>
+        </div>
+
+        <div class="comments">
+          <h6>Comments (42)</h6>
+          <div class="comment">
+            <div class="icon red">M</div>
+            <div class="comment-text">
+              <b>MusicLover92</b><br />
+              This track is absolutely amazing! The synths are incredible 🔥<br />
+              <small>12 👍 • Reply • 2 hours ago</small>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="icon purple">S</div>
+            <div class="comment-text">
+              <b>SynthWave88</b><br />
+              Been waiting for this drop! Perfect for my late night drives ✨<br />
+              <small>8 👍 • Reply • 5 hours ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="rightbar">
+        <h6>Liked Songs</h6>
+        <div class="song-item"><span>Blinding Lights</span> <span>♥</span></div>
+        <div class="song-item"><span>Good 4 U</span> <span>♥</span></div>
+        <div class="song-item"><span>Levitating</span> <span>♥</span></div>
+
+        <h6>Recently Played</h6>
+        <div class="song-item"><span>As It Was</span> <span>10m</span></div>
+        <div class="song-item"><span>Anti-Hero</span> <span>25m</span></div>
+        <div class="song-item"><span>Unholy</span> <span>1h</span></div>
+      </div>
+    </div>
   </body>
 </html>
