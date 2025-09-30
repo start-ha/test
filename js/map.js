@@ -1,152 +1,95 @@
-const locationData = {
-  경복궁: {
-    name: "경복궁",
-    details: "Seoul, Korea",
-    track: "Supernova",
-    artist: "aespa",
-    plays: "20",
-    lat: 37.5784301,
-    lng: 126.976889,
-  },
-  잠수교: {
-    name: "잠수교",
-    details: "Seoul, Korea",
-    track: "aenergy",
-    artist: "aespa",
-    plays: "15",
-    lat: 37.5141892,
-    lng: 126.9965871,
-  },
-  "신세계 강남": {
-    name: "신세계 강남",
-    details: "Seoul, Korea",
-    track: "Gee",
-    artist: "SNSD",
-    plays: "50",
-    lat: 37.5043508,
-    lng: 127.0043655,
-  },
-  "SM Entertainment": {
-    name: "SM Entertainment",
-    details: "Seoul, Korea",
-    track: "Sherlock",
-    artist: "SHINee",
-    plays: "30",
-    lat: 37.5443374,
-    lng: 127.0440158,
-  },
-};
+const STORAGE_KEY = "locations";
+let map;
+let markers = {};
+let currentAudio = null;
+let currentPlayButton = null;
 
-$(".control-btn").hover(
-  function () {
-    $(this).css("transform", "translateY(-2px)");
-  },
-  function () {
-    $(this).css("transform", "translateY(0)");
-  }
-);
+// 로컬스토리지에서 데이터 가져오기
+function getLocations() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
 
-function selectLocation(element, locationName) {
+// 로컬스토리지 저장
+function saveLocations(locations) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(locations));
+}
+
+// 카드 렌더링
+function renderLocations() {
+  const $list = $(".location-list");
+  $list.empty();
+
+  const locations = getLocations();
+  $.each(locations, function (_, loc) {
+    const $item = $(`
+      <div class="location-item">
+        <div class="location-icon">📍</div>
+        <div class="location-info">
+          <div class="location-name" data-location="${loc.name}">${loc.name}</div>
+          <div class="location-details">${loc.details}</div>
+          <div class="location-track">Last played: ${loc.track}</div>
+        </div>
+        <div class="track-count">🎵 ${loc.plays}</div>
+      </div>
+    `);
+    $list.append($item);
+  });
+}
+
+function initMap() {
+  const locations = getLocations();
+  const defaultCenter = locations.length
+    ? new naver.maps.LatLng(locations[0].lat, locations[0].lng)
+    : new naver.maps.LatLng(37.5665, 126.978);
+
+  map = new naver.maps.Map("map", {
+    center: defaultCenter,
+    zoom: 13,
+  });
+
+  markers = {};
+
+  $.each(locations, function (_, loc) {
+    const marker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(loc.lat, loc.lng),
+      map: map,
+      title: loc.name,
+      icon: {
+        content: `<div style="background:#1db954;width:16px;height:16px;border-radius:50%;"></div>`,
+      },
+    });
+
+    markers[loc.name] = marker;
+
+    naver.maps.Event.addListener(marker, "click", function () {
+      selectLocationByName(loc.name);
+    });
+  });
+
+  // 지도 클릭 → 모달 + 좌표 자동 입력
+  naver.maps.Event.addListener(map, "click", function (e) {
+    const lat = e.coord.y;
+    const lng = e.coord.x;
+
+    $("#addLocationModal").modal("show");
+    $("#locationLat").val(lat);
+    $("#locationLng").val(lng);
+  });
+}
+
+// 선택된 위치 처리
+function selectLocationByName(name) {
+  const locations = getLocations();
+  const loc = locations.find(l => l.name === name);
+  if (!loc) return;
+
+  // 카드 active
   $(".location-item").removeClass("active");
+  $(`.location-name[data-location='${name}']`).closest(".location-item").addClass("active");
 
-  $(element).addClass("active");
-
-  const location = locationData[locationName];
-
-  if (location) {
-    $("#selectedLocationName").text(location.name);
-    $("#selectedLocationDetails").text(location.details);
-    $("#currentTrackTitle").text(location.track);
-    $("#currentTrackArtist").text(location.artist);
-    $("#playStats").text(`Played ${location.plays} times here`);
-  }
-}
-
-const defaultLocation = $(".location-item").first();
-if (defaultLocation.length) {
-  selectLocation(defaultLocation, "경복궁");
-}
-
-// map
-let mapOptions = {
-  center: new naver.maps.LatLng(37.5784301, 126.976889),
-  zoom: 10,
-};
-
-let map = new naver.maps.Map("map", {
-  center: new naver.maps.LatLng(37.5784301, 126.976889),
-  zoom: 10,
-});
-let markers = [];
-Object.keys(locationData).forEach(key => {
-  const loc = locationData[key];
-  const marker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(loc.lat, loc.lng),
-    map: map,
-    title: loc.name,
-  });
-
-  naver.maps.Event.addListener(marker, "click", function () {
-    $(".location-item").removeClass("active");
-    $(`.location-name[data-location='${key}']`)
-      .closest(".location-item")
-      .addClass("active")
-      .siblings()
-      .removeClass("active");
-
-    $("#selectedLocationName").text(loc.name);
-    $("#selectedLocationDetails").text(loc.details);
-    $("#currentTrackTitle").text(loc.track);
-    $("#currentTrackArtist").text(loc.artist);
-    $("#playStats").text(`Played ${loc.plays} times here`);
-  });
-});
-// let marker = new naver.maps.Marker({
-//   position: new naver.maps.LatLng(37.5784301, 126.976889),
-//   map: map,
-// });
-
-let defaultIcon = {
-  content: `<div style="background:#1db954;width:16px;height:16px;border-radius:50%;"></div>`,
-};
-let activeIcon = {
-  content: `<div style="background:red;width:20px;height:20px;border-radius:50%;"></div>`,
-};
-
-// 마커 생성
-Object.keys(locationData).forEach(key => {
-  const loc = locationData[key];
-
-  let marker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(loc.lat, loc.lng),
-    map: map,
-    title: loc.name,
-    icon: defaultIcon,
-  });
-
-  markers[key] = marker;
-
-  naver.maps.Event.addListener(marker, "click", function () {
-    $(`.location-name[data-location='${key}']`)
-      .closest(".location-item")
-      .addClass("active")
-      .siblings()
-      .removeClass("active");
-
-    setActiveMarker(key);
-
-    $("#selectedLocationName").text(loc.name);
-    $("#selectedLocationDetails").text(loc.details);
-    $("#currentTrackTitle").text(loc.track);
-    $("#currentTrackArtist").text(loc.artist);
-    $("#playStats").text(`Played ${loc.plays} times here`);
-  });
-});
-
-// 공통 함수: 마커 색상 토글
-function setActiveMarker(activeKey) {
+  // 마커 색상
   Object.keys(markers).forEach(key => {
-    if (key === activeKey) {
+    if (key === name) {
       markers[key].setIcon({
         content: `<div style="background:red;width:20px;height:20px;border-radius:50%;"></div>`,
       });
@@ -156,23 +99,105 @@ function setActiveMarker(activeKey) {
       });
     }
   });
-}
 
-$(document).on("click", ".location-item", function () {
-  const key = $(this).find(".location-name").data("location");
-
-  $(this).addClass("active").siblings().removeClass("active");
-
-  setActiveMarker(key);
-
-  const loc = locationData[key];
-  if (loc) {
-    $("#selectedLocationName").text(loc.name);
-    $("#selectedLocationDetails").text(loc.details);
-    $("#currentTrackTitle").text(loc.track);
-    $("#currentTrackArtist").text(loc.artist);
-    $("#playStats").text(`Played ${loc.plays} times here`);
-  }
+  // 오른쪽 패널 업데이트
+  $("#selectedLocationName").text(loc.name);
+  $("#selectedLocationDetails").text(loc.details);
+  $("#currentTrackTitle").text(loc.track);
+  $("#currentTrackArtist").text(loc.artist);
+  $("#playStats").text(`Played ${loc.plays} times here`);
 
   map.setCenter(new naver.maps.LatLng(loc.lat, loc.lng));
+
+  // iTunes API 노래 재생
+  loadSongs(loc.track, loc.artist);
+}
+
+// iTunes API 호출 및 재생
+async function loadSongs(songName, artistName) {
+  if (!songName) return;
+
+  try {
+    const response = await fetch(
+      `https://itunes.apple.com/search?term=${encodeURIComponent(
+        songName + " " + artistName
+      )}&limit=1&entity=song`
+    );
+    const data = await response.json();
+    const song = data.results[0];
+    if (!song || !song.previewUrl) return;
+
+    if (currentAudio) currentAudio.pause();
+    if (currentPlayButton) currentPlayButton.text("▶️");
+
+    currentAudio = new Audio(song.previewUrl);
+    currentAudio.play();
+
+    $("#currentTrackTitle2").text(song.trackName);
+    $("#currentTrackArtist2").text(song.artistName);
+
+    $(".control-btn")
+      .text("⏸️")
+      .off("click")
+      .on("click", function () {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          $(this).text("⏸️");
+        } else {
+          currentAudio.pause();
+          $(this).text("▶️");
+        }
+      });
+  } catch (err) {
+    console.error("iTunes API Error:", err);
+  }
+}
+
+$(document).ready(function () {
+  // 초기 렌더링
+  renderLocations();
+  initMap();
+
+  // 기본 선택
+  const locations = getLocations();
+  if (locations.length) {
+    selectLocationByName(locations[0].name);
+  }
+
+  // 카드 클릭
+  $(document).on("click", ".location-item", function () {
+    const key = $(this).find(".location-name").data("location");
+    selectLocationByName(key);
+  });
+
+  // + 아이콘 클릭 → 모달
+  $("#searchIcon").on("click", function () {
+    $("#addLocationModal").modal("show");
+  });
+
+  // 모달 폼 제출
+  $("#addLocationForm").on("submit", function (e) {
+    e.preventDefault();
+
+    const newLocation = {
+      name: $("#locationName").val(),
+      details: $("#locationDetails").val(),
+      track: $("#locationTrack").val(),
+      artist: $("#locationArtist").val(),
+      plays: $("#locationPlays").val(),
+      lat: parseFloat($("#locationLat").val()),
+      lng: parseFloat($("#locationLng").val()),
+    };
+
+    const savedLocations = getLocations();
+    savedLocations.push(newLocation);
+    saveLocations(savedLocations);
+
+    $("#addLocationModal").modal("hide");
+    $("#addLocationForm")[0].reset();
+
+    renderLocations();
+    initMap();
+    selectLocationByName(newLocation.name);
+  });
 });
