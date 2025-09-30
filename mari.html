@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <title>MARI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --chiikawa-pink: #ffb3d9;
+            --chiikawa-blue: #87ceeb;
+            --chiikawa-yellow: #fff59d;
+            --chiikawa-green: #c8e6c9;
+            --chiikawa-orange: #ffcc80;
+            --chiikawa-purple: #d1c4e9;
+            --text-dark: #5d4e75;
+            --text-light: #8b7ca3;
+            --bg-cream: #fef7f0;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 떠다니는 하트들 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: var(--chiikawa-pink);
+            animation: floatUp 8s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 헤더 */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(93, 78, 117, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 4px solid var(--chiikawa-pink);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: var(--chiikawa-pink);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* 히어로 섹션 */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--chiikawa-blue) 0%, var(--chiikawa-pink) 50%, var(--chiikawa-yellow) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.2)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="70" cy="70" r="1" fill="rgba(255,255,255,0.4)"/></svg>') repeat;
+            animation: sparkle 20s linear infinite;
+        }
+        
+        @keyframes sparkle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+        
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(93, 78, 117, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .chiikawa-face {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--chiikawa-pink), var(--chiikawa-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        .cute-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--chiikawa-pink);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 179, 217, 0.4);
+        }
+        
+        .cute-button:hover {
+            background: var(--chiikawa-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(209, 196, 233, 0.4);
+        }
+        
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            position: relative;
+        }
+        
+        .section-title::before {
+            content: '✧･ﾟ: *✧･ﾟ:*';
+            display: block;
+            color: var(--chiikawa-pink);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        
+        /* 소개 섹션 */
+        .about {
+            background: var(--white);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .character-card {
+            background: linear-gradient(135deg, var(--chiikawa-yellow), var(--chiikawa-orange));
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 204, 128, 0.3);
+            position: relative;
+        }
+        
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--chiikawa-pink), var(--chiikawa-blue), var(--chiikawa-green));
+            border-radius: 35px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .character-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .about-text {
+            background: var(--chiikawa-green);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(200, 230, 201, 0.5);
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+        
+        /* 스킬 섹션 */
+        .skills {
+            background: var(--chiikawa-blue);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .skill-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(135, 206, 235, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 179, 217, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .skill-card:hover::before {
+            left: 100%;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(135, 206, 235, 0.4);
+        }
+        
+        .skill-emoji {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .skill-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .skill-level {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .heart-rating {
+            color: var(--chiikawa-pink);
+            font-size: 1.2rem;
+        }
+        
+        /* 프로젝트 섹션 */
+        .projects {
+            background: var(--chiikawa-purple);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(209, 196, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(209, 196, 233, 0.4);
+        }
+        
+        .project-header {
+            background: linear-gradient(135deg, var(--chiikawa-yellow), var(--chiikawa-green));
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .project-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .project-content {
+            padding: 30px;
+        }
+        
+        .project-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .project-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: var(--chiikawa-pink);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 16px;
+            border: 2px solid var(--chiikawa-pink);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: var(--chiikawa-pink);
+            color: white;
+        }
+        
+        /* 연락처 섹션 */
+        .contact {
+            background: var(--chiikawa-yellow);
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(255, 245, 157, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 푸터 */
+        footer {
+            background: var(--text-dark);
+            color: var(--chiikawa-pink);
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .footer-chiikawa {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .chiikawa-face {
+                font-size: 3rem;
+            }
+        }
+        
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 치이카와 로딩 스피너 */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-chiikawa {
+            font-size: 4rem;
+            animation: loadingBounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes loadingBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 로딩 화면 -->
+    <div class="loading" id="loading">
+        <div class="loading-chiikawa">🐰</div>
+    </div>
+    
+    <!-- 떠다니는 하트들 -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">🐰 MARI</div>
+            <ul class="nav-links">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#skills">스킬</a></li>
+                <li><a href="#projects">링크</a></li>
+                <li><a href="#contact">연락처</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="chiikawa-face">🐰</div>
+                <h1 class="hero-title">최마리</h1>
+                <p class="hero-subtitle">풀스택 개발자를 목표로 공부하고 있습니다.</p>
+                <a href="#about" class="cute-button">더 알아보기 ✨</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title fade-in">나는 누구일까?</h2>
+                <div class="about-content">
+                    <div class="character-card fade-in">
+                        <span class="character-emoji">🐰</span>
+                        <h3>최마리</h3>
+                        <p>MBTI : ISFP<br>취미 : 누워있기</p>
+                    </div>
+                    <div class="about-text fade-in">
+                        <h3>안녕하세요. 최마리입니다🌸</h3>
+                        <p>저는 웹 풀스택 개발자를 목표로 학습을 하며 성장하고 있는 개발자입니다.
+                            <br>저는 Java, Spring Boot 기반의 백엔드 경험을 가지고 있습니다.
+                        </p>
+                        <br>
+                        <p>매일매일 새로운 것을 배우고, 귀여운 웹사이트와 앱을 만들 수 있으면 좋겠습니다. 
+                        <br>지금은 프론트에 자신이 없지만... 그래도 코딩이 재미있어요! ✨</p>
+                        <br>
+                        <p><strong>좋아하는 것:</strong> 😎누워있기, 🎵 음악, 💻 코딩, 😸귀여운 것들</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title fade-in" style="color: white;">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <div class="skill-emoji">🌸</div>
+                        <h3>Frontend</h3>
+                        <p>HTML5, CSS3, JavaScript</p>
+                        <div class="skill-level">
+                            <span class="heart-rating">-학습중-</span>
+                        </div>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <div class="skill-emoji">🔧</div>
+                        <h3>Backend</h3>
+                        <p>Java, Spring Boot</p>
+                        <div class="skill-level">
+                            <span class="heart-rating">💖💖💖💗</span>
+                        </div>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <div class="skill-emoji">🗃️</div>
+                        <h3>데이터베이스</h3>
+                        <p>Oracle</p>
+                        <div class="skill-level">
+                            <span class="heart-rating">💖💖💖💗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title fade-in" style="color: white;">Links</h2>
+                <div class="projects-grid">
+                    <div class="project-card fade-in">
+                        <div class="project-header">
+                            <div class="project-emoji"><i class="fa-brands fa-github"></i></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>GitHub</h3>
+                            <p>제가 참여했던 프로젝트를 확인하고<br>코드 스타일을 참고하실 수 있습니다.</p>
+                            <a href="https://github.com/ChoiMari" target="_blank" rel="noopener noreferrer" class="project-link">구경하기 ✨</a>
+                        </div>
+                    </div>
+                    <div class="project-card fade-in">
+                        <div class="project-header">
+                            <div class="project-emoji"><i class="fa-brands fa-blogger-b"></i></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>velog</h3>
+                            <p>게시글 수가 많지는 않지만<br>운영하고 있는 개발 블로그입니다.</p>
+                            <a href="https://velog.io/@272432/posts" target="_blank" rel="noopener noreferrer" class="project-link">구경하기 ✨</a>
+                        </div>
+                    </div>
+                    <div class="project-card fade-in">
+                        <div class="project-header">
+                            <div class="project-emoji"><i class="fa-solid fa-envelope"></i></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Email</h3>
+                            <p>메일로 언제든지 연락하실 수 있어요.<br>Gmail을 이용합니다.</p>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=chl98639863@gmail.com" target="_blank" rel="noopener noreferrer" class="project-link">구경하기 ✨</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title fade-in">나와 친구가 되어주세요!</h2>
+                <div class="contact-content fade-in">
+                    <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                        함께 재밌는 프로젝트를 만들고 싶다면 언제든지 연락해주세요! 🌸
+                    </p>
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-emoji">📫</div>
+                            <h3>이메일</h3>
+                            <p>chl98639863@gmail.com</p>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-emoji">💬</div>
+                            <h3>카카오톡</h3>
+                            <p>@cldlzkdhk</p>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-emoji">🐈‍⬛</div>
+                            <h3>깃허브</h3>
+                            <p>https://github.com/ChoiMari</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-chiikawa">🐰🐼🐧🐥🐨</div>
+        <p>© 2025/09 자기소개 페이지</p>
+    </footer>
+
+    <script>
+        // 로딩 화면 제거
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // 떠다니는 하트 생성
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['💗', '💖', '💕', '💝', '💘'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heart.style.animationDuration = (8 + Math.random() * 4) + 's';
+            
+            document.getElementById('floatingHearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 12000);
+        }
+
+        // 하트 생성 간격
+        setInterval(createFloatingHeart, 3000);
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 치이카와 효과음 (클릭 시)
+        function playChiikawaSound() {
+            // 웹 오디오로 귀여운 소리 만들기
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                // 오디오 컨텍스트 생성 실패 시 무시
+            }
+        }
+
+        // 귀여운 버튼들에 사운드 추가
+        document.querySelectorAll('.cute-button, .project-link, .nav-links a').forEach(btn => {
+            btn.addEventListener('click', playChiikawaSound);
+        });
+
+        // 치이카와 캐릭터 호버 효과
+        document.querySelectorAll('.chiikawa-face, .character-emoji').forEach(emoji => {
+            emoji.addEventListener('mouseenter', () => {
+                emoji.style.transform = 'scale(1.2) rotate(10deg)';
+            });
+            
+            emoji.addEventListener('mouseleave', () => {
+                emoji.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // 랜덤 치이카와 메시지
+        const chiikawaMessages = [
+            "야호! 🐰",
+            "작업 중이야~ ✨",
+            "힘내자! 🌸",
+            "오늘도 화이팅! 🎵",
+            "초코 케이크가 먹고 싶어 🍰",
+            "코딩은 재밌어! 💻"
+        ];
+
+        // 치이카와 캐릭터 클릭 시 메시지 표시
+        document.querySelectorAll('.chiikawa-face, .character-emoji').forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                const message = chiikawaMessages[Math.floor(Math.random() * chiikawaMessages.length)];
+                
+                // 임시 메시지 요소 생성
+                const messageEl = document.createElement('div');
+                messageEl.textContent = message;
+                messageEl.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--chiikawa-pink);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 20px;
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                    z-index: 10000;
+                    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.5);
+                    animation: messagePopup 2s ease-out forwards;
+                `;
+                
+                // 애니메이션 키프레임 추가
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes messagePopup {
+                        0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                        20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+                        80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                        100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(messageEl);
+                
+                setTimeout(() => {
+                    messageEl.remove();
+                    style.remove();
+                }, 2000);
+                
+                playChiikawaSound();
+            });
+        });
+
+        // 스킬 카드 호버 시 하트 이펙트
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = '💖';
+                        heart.style.cssText = `
+                            position: absolute;
+                            top: 20px;
+                            left: ${Math.random() * 100}%;
+                            font-size: 1.5rem;
+                            pointer-events: none;
+                            animation: floatUp 2s ease-out forwards;
+                        `;
+                        card.style.position = 'relative';
+                        card.appendChild(heart);
+                        
+                        setTimeout(() => heart.remove(), 2000);
+                    }, i * 200);
+                }
+            });
+        });
+
+        // 치이카와 타이핑 효과
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        // 페이지 로드 시 환영 메시지
+        setTimeout(() => {
+            const welcomeMsg = document.createElement('div');
+            welcomeMsg.innerHTML = '🐰 방문을 환영해! ✨';
+            welcomeMsg.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--chiikawa-pink), var(--chiikawa-blue));
+                color: white;
+                padding: 15px 20px;
+                border-radius: 25px;
+                font-weight: 700;
+                box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+                z-index: 9999;
+                animation: slideIn 3s ease-out forwards;
+                max-width: 300px;
+                font-size: 0.9rem;
+            `;
+            
+            const slideInStyle = document.createElement('style');
+            slideInStyle.textContent = `
+                @keyframes slideIn {
+                    0% { transform: translateX(100%); opacity: 0; }
+                    20% { transform: translateX(0); opacity: 1; }
+                    80% { transform: translateX(0); opacity: 1; }
+                    100% { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(slideInStyle);
+            document.body.appendChild(welcomeMsg);
+            
+            setTimeout(() => {
+                welcomeMsg.remove();
+                slideInStyle.remove();
+            }, 3000);
+        }, 2000);
+
+        // 스크롤 시 치이카와 캐릭터 변화
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const heroFace = document.querySelector('.chiikawa-face');
+            
+            if (scrollTop > lastScrollTop) {
+                // 아래로 스크롤
+                heroFace.innerHTML = '🐰';
+            } else {
+                // 위로 스크롤
+                heroFace.innerHTML = '🐰';
+            }
+            
+            // 스크롤 위치에 따라 다른 표정
+            if (scrollTop > 500) {
+                heroFace.innerHTML = '😊';
+            } else if (scrollTop > 1000) {
+                heroFace.innerHTML = '🤗';
+            } else if (scrollTop > 1500) {
+                heroFace.innerHTML = '😄';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // 콘솔에 치이카와 아트
+        console.log(`
+    　　　　　🐰
+    　　　／｜　｜＼
+    　　／　｜　｜　＼
+    　（　　　●　　　）
+    　　＼　　～　　／
+    　　　｜　∇　｜
+    　　　　￣￣￣
+    
+    치이카와 개발자의 포트폴리오에 오신 걸 환영해요! 💕
+    이 사이트는 사랑과 정성으로 만들어졌어요 ✨
+        `);
+
+        // 이스터에그: 특정 키 조합으로 치이카와 파티 모드
+        let keySequence = [];
+        const secretCode = ['c', 'h', 'i', 'i', 'k', 'a', 'w', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            keySequence.push(e.key.toLowerCase());
+            
+            if (keySequence.length > secretCode.length) {
+                keySequence.shift();
+            }
+            
+            if (JSON.stringify(keySequence) === JSON.stringify(secretCode)) {
+                // 치이카와 파티 모드!
+                document.body.style.animation = 'rainbow 2s linear infinite';
+                
+                const partyStyle = document.createElement('style');
+                partyStyle.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(partyStyle);
+                
+                // 파티 메시지
+                alert('🎉 파티 모드 발동! 🎉');
+                
+                // 화면에 치이카와들이 떨어짐
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const fallingChiikawa = document.createElement('div');
+                        fallingChiikawa.innerHTML = ['🐰', '🐛', '🐨'][Math.floor(Math.random() * 3)];
+                        fallingChiikawa.style.cssText = `
+                            position: fixed;
+                            top: -50px;
+                            left: ${Math.random() * 100}vw;
+                            font-size: 3rem;
+                            z-index: 9999;
+                            pointer-events: none;
+                            animation: partyFall 3s linear forwards;
+                        `;
+                        
+                        const fallStyle = document.createElement('style');
+                        fallStyle.textContent = `
+                            @keyframes partyFall {
+                                to {
+                                    transform: translateY(100vh) rotate(360deg);
+                                }
+                            }
+                        `;
+                        document.head.appendChild(fallStyle);
+                        
+                        document.body.appendChild(fallingChiikawa);
+                        
+                        setTimeout(() => {
+                            fallingChiikawa.remove();
+                            fallStyle.remove();
+                        }, 3000);
+                    }, i * 200);
+                }
+                
+                // 5초 후 파티 모드 종료
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                    partyStyle.remove();
+                }, 5000);
+                
+                keySequence = [];
+            }
+        });
+
+        // 마우스 따라다니는 작은 치이카와
+        let isFollowing = false;
+        document.addEventListener('dblclick', () => {
+            if (!isFollowing) {
+                isFollowing = true;
+                const follower = document.createElement('div');
+                follower.innerHTML = '🐰';
+                follower.style.cssText = `
+                    position: fixed;
+                    font-size: 2rem;
+                    pointer-events: none;
+                    z-index: 9998;
+                    transition: all 0.3s ease;
+                `;
+                document.body.appendChild(follower);
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (isFollowing) {
+                        follower.style.left = (e.clientX - 15) + 'px';
+                        follower.style.top = (e.clientY - 30) + 'px';
+                    }
+                });
+                
+                // 10초 후 자동으로 사라짐
+                setTimeout(() => {
+                    follower.remove();
+                    isFollowing = false;
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>

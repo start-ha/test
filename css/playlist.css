@@ -9,7 +9,7 @@ body {
   color: white;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 /* Header Styles */
@@ -664,4 +664,126 @@ header {
     width: 100%;
     height: auto;
   }
+}
+/* 플레이어 전체 영역 */
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px;
+  background-color: #181818;
+  border-radius: 16px;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* 컨트롤 버튼 */
+.player button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%; /* 원형 버튼 */
+  background-color: #282828;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.player button:hover {
+  background-color: #1db954; /* Spotify Green */
+  transform: scale(1.1);
+}
+
+/* 시크바 */
+#seekBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 250px;
+  height: 8px;
+  border-radius: 5px;
+  background: #404040;
+  cursor: pointer;
+}
+
+#seekBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+#seekBar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+#seekBar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+}
+
+/* 시간 표시 */
+#currentTime,
+#duration {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+/* 볼륨바 */
+#volumeBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 120px;
+  height: 8px;
+  border-radius: 4px;
+  background: #404040;
+  cursor: pointer;
+}
+
+#volumeBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+}
+#volumeBar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+}
+
+/* 파형 캔버스 */
+#waveform {
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+  background: #111;
+}
+
+/* '곡 불러오기' 버튼 */
+#loadSong {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #1db954;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+#loadSong:hover {
+  background-color: #1ed760; /* 조금 더 밝은 초록 */
+  transform: scale(1.05);
 }
