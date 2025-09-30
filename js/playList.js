@@ -1,29 +1,24 @@
 $(function () {
   let audioCtx, analyser, source, dataArray, bufferLength, animationId;
 
-  // ✅ 오디오 엘리먼트: 한 번만 참조
   const audio = $("#player")[0];
-
-  // 캔버스
   const canvas = document.getElementById("waveform");
   const ctx = canvas.getContext("2d");
 
   const searchUrl =
     "https://itunes.apple.com/search?term=blinding+lights&entity=musicTrack&limit=1";
 
-  // 곡 불러오기 + 재생
   $("#loadSong").on("click", function () {
     $("#playPause").text("⏸️");
+
     $.getJSON(searchUrl, function (res) {
       if (res.results && res.results.length > 0) {
         const song = res.results[0];
         const previewUrl = song.previewUrl;
 
-        // ✅ CORS는 src 설정 전에
         audio.crossOrigin = "anonymous";
         audio.src = previewUrl;
 
-        // 오디오 컨텍스트 초기화 (최초 1회)
         if (!audioCtx) {
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
           source = audioCtx.createMediaElementSource(audio);
@@ -35,16 +30,22 @@ $(function () {
 
           source.connect(analyser);
           analyser.connect(audioCtx.destination);
+
+          console.log("AudioContext, AnalyserNode 생성 완료 ✅");
         }
 
-        if (audioCtx.state === "suspended") audioCtx.resume();
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume().then(() => {
+            audio.play();
+          });
+        } else {
+          audio.play();
+        }
 
-        // 재생
-        audio.play().catch(() => {});
-
-        // ✅ 중복 드로잉 방지
-        cancelAnimationFrame(animationId);
+        if (animationId) cancelAnimationFrame(animationId);
         draw();
+      } else {
+        console.warn("검색 결과 없음:", res);
       }
     });
   });
@@ -80,41 +81,34 @@ $(function () {
     ctx.stroke();
   }
 
-  // ▶️/⏸️
   $("#playPause").on("click", function () {
     if (audio.paused) {
       if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
       audio.play();
       $(this).text("⏸️");
 
-      // 파형이 멈춰있다면 재개
       if (!animationId) draw();
     } else {
       audio.pause();
       $(this).text("▶️");
-      // 필요하면 일시정지 시에도 파형 그려둠(원하면 여기서 cancelAnimationFrame 가능)
     }
   });
 
-  // 진행바 업데이트
   $(audio).on("timeupdate", function () {
     $("#seekBar").val(audio.currentTime);
     $("#currentTime").text(formatTime(audio.currentTime));
   });
 
-  // 진행바로 시크
   $("#seekBar").on("input change", function () {
     audio.currentTime = Number($(this).val());
   });
 
-  // 메타데이터 로드 시 길이 세팅
   $(audio).on("loadedmetadata", function () {
     $("#seekBar").attr({ max: audio.duration, value: 0 });
     $("#duration").text(formatTime(audio.duration));
     $("#currentTime").text("0:00");
   });
 
-  // 볼륨
   $("#volumeBar").on("input change", function () {
     audio.volume = Number($(this).val());
   });
