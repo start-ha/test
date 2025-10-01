@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>장하영 | Backend Developer</title>
+    <title>하영 | Full-Stack Developer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <style>
         * {
             margin: 0;
@@ -336,7 +337,7 @@
 
         .about-image {
             width: 100%;
-            height: 400px;
+            height: 250px;
             border-radius: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
@@ -402,14 +403,14 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Portfolio 섹션 */
-        .portfolio-grid {
+        /* favorite 섹션 */
+        .favorite-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
-        .portfolio-item {
+        .favorite-item {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -418,11 +419,11 @@
             transition: transform 0.3s ease;
         }
 
-        .portfolio-item:hover {
+        .favorite-item:hover {
             transform: translateY(-10px);
         }
 
-        .portfolio-image {
+        .favorite-image {
             height: 200px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
@@ -432,25 +433,26 @@
             color: white;
         }
 
-        .portfolio-content {
+        .favorite-content {
             padding: 2rem;
         }
 
-        .portfolio-content h3 {
+        .favorite-content h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: #667eea;
         }
 
-        .portfolio-content p {
+        .favorite-content p {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1rem;
         }
 
-        .portfolio-tags {
+        .favorite-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            justify-content: center;
         }
 
         .tag {
@@ -617,8 +619,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .portfolio-grid {
+            .favorite-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .favorite-image iframe {
+                border-radius: 8px;
+                aspect-ratio: 16/9;
             }
 
             .contact-info {
@@ -671,12 +678,12 @@
     <!-- 네비게이션 -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">김개발</div>
+            <div class="logo">HaYeoung</div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#favorite">Favorite</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="mobile-menu-btn" id="mobile-menu-btn">
@@ -692,19 +699,19 @@
                 <div class="profile-image">
                     👨‍💻
                 </div>
-                <h1>장하영</h1>
-                <p class="subtitle">Frontend Developer</p>
+                <h1>Hayeong</h1>
+                <p class="subtitle">Full-Stack Developer</p>
                 <p class="description">
-                    우주처럼 무한한 가능성을 가진 개발자입니다. 
+                    우주처럼 무한한 가능성을 가진 개발자 
                 </p>
-                <div class="cta-buttons">
-                    <a href="#portfolio" class="btn btn-primary">
-                        <i class="fas fa-code"></i> 노션
+                <!-- <div class="cta-buttons">
+                    <a href="#favorite" class="btn btn-primary">
+                        <i class="fas fa-code"></i> Notion
                     </a>
                     <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i> 깃허브
+                        <i class="fas fa-envelope"></i> GitHub
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="scroll-indicator">
@@ -727,7 +734,6 @@
                     </p>
                     <p>
                         프로그래밍 세계에서 끊임없이 새로운 가능성을 탐구합니다.
-                        사용자가 직관적으로 사용할 수 있는 인터페이스를 만드는 것이 제 목표입니다.
                     </p>
                     <p>
                         팀워크를 중시하며, 동료들과의 협업을 통해 더 큰 가치를 만들어내는 것을 좋아합니다.
@@ -747,11 +753,11 @@
                     <h3>JavaScript</h3>
                     <p>ES6+, 비동기 프로그래밍</p>
                 </div>
-                <div class="skill-card">
+                <!-- <div class="skill-card">
                     <i class="fab fa-react skill-icon"></i>
                     <h3>React</h3>
                     <p> 상태 관리 라이브러리를 활용한 컴포넌트 기반 사용자 인터페이스 구축</p>
-                </div>
+                </div> -->
                 
                 <div class="skill-card">
                     <i class="fab fa-css3-alt skill-icon"></i>
@@ -782,50 +788,64 @@
         </div>
     </section>
 
-    <!-- 좋아하는 영화 소개 섹션 -->
-    <section class="section" id="movie">
+    <!-- 좋아하는 취미 소개 섹션 -->
+    <section class="section" id="favorite">
         <div class="container">
-            <h2 class="section-title">Movie</h2>
-            <div class="movie-grid">
-                <div class="movie-item">
-                    <div class="movie-image">
-                        🌟
+            <h2 class="section-title">My favorite things</h2>
+            <div class="favorite-grid">
+                <div class="favorite-item">
+                    <div class="favorite-image">
+                        <iframe 
+                            width="100%" 
+                            height="200" 
+                            src="https://www.youtube.com/embed/V75dMMIW2B4" 
+                            title="반지의 제왕 예고편" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
                     </div>
-                    <div class="portfolio-content">
-                        <h3>우주 테마 웹사이트</h3>
-                        <p>우주를 테마로 한 반응형 웹사이트입니다. 다양한 CSS 애니메이션과 인터랙션을 구현했습니다.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">HTML5</span>
-                            <span class="tag">CSS3</span>
-                            <span class="tag">JavaScript</span>
+                    <div class="favorite-content">
+                        <h3>영화</h3>
+                        <P>Who knows? Have patience. Go where you must go, and hope! - Gandalf, The Lord of the Rings</P>
+
+<P>누가 알겠어요? 인내심을 가지세요. 꼭 가야만 하는 곳으로 가세요, 그리고 희망을 가지세요!<br> - 간달프, 반지의 제왕<br><br></P>
+                        <div class="favorite-tags" >
+                            <span class="tag">Courage</span>
+                            <span class="tag">Patience</span>
+                            <span class="tag">Wisdom</span>
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        📱
+                <div class="favorite-item">
+                    <div class="favorite-image">
+                        <img src="assets/stroll.jpg" alt="산책" style="width: 100%; height: 200px; object-fit: cover;">
                     </div>
-                    <div class="portfolio-content">
-                        <h3>모바일 앱 UI</h3>
-                        <p>사용자 친화적인 모바일 앱 인터페이스를 React Native로 구현했습니다.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">React Native</span>
-                            <span class="tag">Redux</span>
-                            <span class="tag">TypeScript</span>
+                    <div class="favorite-content" >
+                        <h3>산책</h3>
+                            <p>All truly great thoughts are conceived by walking.<br> - Friedrich Nietzsche</p>
+                            <p>생각은 발과 함께 움직인다</p><p>-니체<br><br><br></p>
+                    
+                        <div class="favorite-tags">
+                            <span class="tag">Forest path</span>
+                            <span class="tag">Park</span>
+                            <span class="tag">Hangang River</span>
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        💼
+                                                        
+                <div class="favorite-item">
+                    <div class="favorite-image">
+                        <img src="assets/dalda.jpg" alt="달다구리" style="width: 100%; height: 200px; object-fit: cover;">
                     </div>
-                    <div class="portfolio-content">
-                        <h3>비즈니스 대시보드</h3>
-                        <p>데이터 시각화와 실시간 업데이트 기능을 포함한 관리자 대시보드입니다.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">Chart.js</span>
-                            <span class="tag">WebSocket</span>
+                    <div class="favorite-content">
+                        <h3>달다구리와 커피</h3>
+                        <p>Stressed spelled backwards is desserts. <br>-Unknown</p>
+                        <p>스트레스를 거꾸로 쓰면? 디저트...🤣<br><br><br><br><br><br></p>
+                        <div class="favorite-tags">
+                            <span class="tag">Chocolate</span>
+                            <span class="tag">Coffee</span>
+                            <span class="tag">Cake</span>
                         </div>
                     </div>
                 </div>
@@ -839,7 +859,8 @@
             <div class="contact-content">
                 <h2 class="section-title">Contact Me</h2>
                 <p style="color: rgba(255, 255, 255, 0.6);">
-                © 2025 하영. All rights reserved. Made with ❤️ and ☕
+                    
+                
             </p>
         </div>
     </footer>
@@ -932,7 +953,7 @@
 
         // 스크롤 애니메이션 효과
         function handleScrollAnimations() {
-            const elements = document.querySelectorAll('.skill-card, .portfolio-item, .contact-item, .about-content');
+            const elements = document.querySelectorAll('.skill-card, .favorite-item, .contact-item, .about-content');
             
             elements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
@@ -947,7 +968,7 @@
 
         // 초기 애니메이션을 위한 스타일 설정
         function initScrollAnimations() {
-            const elements = document.querySelectorAll('.skill-card, .portfolio-item, .contact-item, .about-content');
+            const elements = document.querySelectorAll('.skill-card, .favorite-item, .contact-item, .about-content');
             
             elements.forEach((element, index) => {
                 element.style.opacity = '0';
@@ -1034,7 +1055,7 @@
             setTimeout(() => {
                 const subtitle = document.querySelector('.hero .subtitle');
                 if (subtitle) {
-                    typeWriter(subtitle, 'Frontend Developer', 150);
+                    typeWriter(subtitle, 'Full-Stack Developer', 150);
                 }
             }, 1000);
         });
@@ -1108,9 +1129,8 @@
         window.addEventListener('scroll', requestTick);
     </script>
 </body>
-</html> rgba(255, 255, 255, 0.8); font-size: 1.1rem; margin-bottom: 2rem;">
-                    새로운 프로젝트, 협업 문의
-                </p>
+</html> 
+                
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -1118,14 +1138,14 @@
                         <p>bestdev.hy@gmail.com</p>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
+                       <i class="fa-regular fa-comment"></i>
                         <h3>Kakao</h3>
                         <p>passion0803</p>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>Location</h3>
-                        <p>Seoul, South Korea</p>
+                        <p>South Korea</p>
                     </div>
                 </div>
             </div>
@@ -1136,9 +1156,8 @@
     <footer class="footer">
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://github.com/start-ha"><i class="fab fa-github"></i></a>
+                <a href="https://blog.naver.com/sunshine_haha"><i class="fa-brands fa-blogger"></i></a>
             </div>
-            <p style="color:
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; margin-bottom: 2rem;"> </p>
+                <p>© 2025 하영. All rights reserved.</p>
